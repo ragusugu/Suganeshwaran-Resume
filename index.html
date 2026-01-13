@@ -1,0 +1,131 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suganeshwaran R | Big Data & Blockchain Engineer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class'
+      }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap');
+        
+        body { 
+          font-family: 'Inter', sans-serif; 
+          scroll-behavior: smooth; 
+          overflow-x: hidden;
+          margin: 0;
+        }
+
+        .gradient-text { 
+          background: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%); 
+          -webkit-background-clip: text; 
+          -webkit-text-fill-color: transparent; 
+          background-size: 200% auto;
+          animation: textShine 4s linear infinite;
+        }
+
+        @keyframes textShine {
+          to { background-position: 200% center; }
+        }
+
+        /* Sophisticated Multi-Layered Background */
+        .bg-mesh {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          z-index: -2;
+          background: #f8fafc;
+          overflow: hidden;
+        }
+
+        .dark .bg-mesh {
+          background: #020617; /* Deep midnight base */
+        }
+
+        .mesh-ball {
+          position: absolute;
+          border-radius: 50%;
+          filter: blur(100px);
+          opacity: 0.5;
+          animation: float 25s infinite alternate ease-in-out;
+          mix-blend-mode: screen;
+        }
+
+        .dark .mesh-ball {
+          opacity: 0.25;
+          mix-blend-mode: plus-lighter;
+        }
+
+        .ball-1 { width: 60vw; height: 60vw; background: radial-gradient(circle, #6366f1 0%, transparent 70%); top: -20%; left: -10%; animation-delay: 0s; }
+        .ball-2 { width: 50vw; height: 50vw; background: radial-gradient(circle, #a855f7 0%, transparent 70%); bottom: -10%; right: -5%; animation-delay: -7s; }
+        .ball-3 { width: 45vw; height: 45vw; background: radial-gradient(circle, #ec4899 0%, transparent 70%); top: 30%; left: 50%; animation-delay: -14s; }
+        .ball-4 { width: 40vw; height: 40vw; background: radial-gradient(circle, #4f46e5 0%, transparent 70%); bottom: 20%; left: 10%; animation-delay: -5s; opacity: 0.3; }
+
+        @keyframes float {
+          0% { transform: translate(0, 0) rotate(0deg) scale(1); }
+          33% { transform: translate(5%, 10%) rotate(10deg) scale(1.1); }
+          66% { transform: translate(-10%, 5%) rotate(-10deg) scale(0.9); }
+          100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+        }
+
+        /* Geometric Overlay Design */
+        .bg-grid-design {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          z-index: -2;
+          background-image: radial-gradient(rgba(99, 102, 241, 0.05) 1px, transparent 1px);
+          background-size: 40px 40px;
+          opacity: 0.5;
+        }
+
+        .dark .bg-grid-design {
+          background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        }
+
+        #interactive-bg {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          z-index: -1;
+          pointer-events: none;
+          opacity: 0.6;
+        }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.35.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 transition-colors duration-500">
+    <div class="bg-mesh">
+      <div class="mesh-ball ball-1"></div>
+      <div class="mesh-ball ball-2"></div>
+      <div class="mesh-ball ball-3"></div>
+      <div class="mesh-ball ball-4"></div>
+    </div>
+    <div class="bg-grid-design"></div>
+    <canvas id="interactive-bg"></canvas>
+    <div id="root"></div>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>
