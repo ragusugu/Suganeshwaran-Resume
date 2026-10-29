@@ -1,6 +1,7 @@
-import { motion, useReducedMotion, useScroll, useSpring } from 'motion/react';
+import { motion, useScroll, useSpring } from 'motion/react';
 import { useRef } from 'react';
 import { job, jobEntries } from '../content';
+import { useReducedMotion } from '../motion';
 import { CheckIcon } from './Icons';
 import { EASE, Reveal, SectionHeading } from './ui';
 

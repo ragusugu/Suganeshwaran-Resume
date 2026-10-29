@@ -1,6 +1,7 @@
-import { animate, motion, useInView, useMotionValue, useReducedMotion, useSpring } from 'motion/react';
+import { animate, motion, useInView, useMotionValue, useSpring } from 'motion/react';
 import { useEffect, useRef, type PointerEvent, type ReactNode } from 'react';
 import { useFinePointer } from '../hooks';
+import { useReducedMotion } from '../motion';
 
 export const EASE = [0.16, 1, 0.3, 1] as const;
 

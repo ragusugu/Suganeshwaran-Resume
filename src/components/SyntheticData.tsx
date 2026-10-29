@@ -1,6 +1,7 @@
-import { AnimatePresence, motion, useInView, useReducedMotion } from 'motion/react';
+import { AnimatePresence, motion, useInView } from 'motion/react';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { synthetic } from '../content';
+import { useReducedMotion } from '../motion';
 import { CheckIcon, DownloadIcon, PauseIcon, PlayIcon, SparkleIcon } from './Icons';
 import { Chip, EASE, Reveal, SectionHeading, SpotlightCard } from './ui';
 

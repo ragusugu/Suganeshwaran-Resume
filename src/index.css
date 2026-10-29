@@ -315,27 +315,41 @@
     tx-flag-color 4.8s step-end infinite;
 }
 
+/* Reduced motion applies when the device asks for it, unless the visitor opted in (html[data-motion='full']). */
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
+  html:not([data-motion='full']) *,
+  html:not([data-motion='full']) *::before,
+  html:not([data-motion='full']) *::after {
     animation: none !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
 
-  .marquee-track {
-    flex-wrap: wrap;
-    justify-content: center;
+  /* A still ribbon: every tool in centered rows, instead of one long strip cut off at both edges. */
+  html:not([data-motion='full']) .marquee {
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+
+  html:not([data-motion='full']) .marquee-track {
     width: auto !important;
   }
 
-  .marquee-dup {
+  html:not([data-motion='full']) .marquee-track > ul {
+    flex: 0 1 100%;
+    min-width: 0;
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 0.75rem;
+    padding-right: 0;
+  }
+
+  html:not([data-motion='full']) .marquee-dup {
     display: none;
   }
 
-  .tx-ok,
-  .tx-flag {
+  html:not([data-motion='full']) .tx-ok,
+  html:not([data-motion='full']) .tx-flag {
     opacity: 0.8;
   }
 }

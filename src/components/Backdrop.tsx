@@ -1,6 +1,6 @@
-import { useReducedMotion } from 'motion/react';
 import { useEffect, useRef } from 'react';
 import { useFinePointer } from '../hooks';
+import { useReducedMotion } from '../motion';
 
 /** Fixed page backdrop: a blueprint grid with a soft glow that follows the cursor. */
 export function Backdrop() {

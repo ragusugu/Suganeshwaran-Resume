@@ -1,6 +1,7 @@
-import { AnimatePresence, animate, motion, useInView, useReducedMotion } from 'motion/react';
+import { AnimatePresence, animate, motion, useInView } from 'motion/react';
 import { useEffect, useRef, useState } from 'react';
 import { stages, type Stage, type StageKind } from '../content';
+import { useReducedMotion } from '../motion';
 import { PauseIcon, PlayIcon } from './Icons';
 import { Chip, EASE } from './ui';
 

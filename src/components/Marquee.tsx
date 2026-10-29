@@ -1,5 +1,5 @@
-import { useReducedMotion } from 'motion/react';
 import { useState } from 'react';
+import { useReducedMotion } from '../motion';
 import { PauseIcon, PlayIcon } from './Icons';
 
 const tools = [
