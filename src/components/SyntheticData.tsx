@@ -1,7 +1,6 @@
 import { AnimatePresence, motion, useInView } from 'motion/react';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { synthetic } from '../content';
-import { useReducedMotion } from '../motion';
 import { CheckIcon, DownloadIcon, PauseIcon, PlayIcon, SparkleIcon } from './Icons';
 import { Chip, EASE, Reveal, SectionHeading, SpotlightCard } from './ui';
 
@@ -258,11 +257,10 @@ const scenes = [UploadScene, AnalyzeScene, TuneScene, PreviewScene, GenerateScen
 
 export function SyntheticData() {
   const rootRef = useRef<HTMLDivElement>(null);
-  const reduce = useReducedMotion();
   const visible = useInView(rootRef, { amount: 0.4 });
   const [step, setStep] = useState(0);
   const [paused, setPaused] = useState(false);
-  const playing = visible && !paused && !reduce;
+  const playing = visible && !paused;
   const Active = scenes[step];
 
   // Walk through the steps by itself while it is on screen. Clicking a step, or the pause button, stops it.
@@ -329,16 +327,14 @@ export function SyntheticData() {
                 );
               })}
             </ol>
-            {!reduce && (
-              <button
-                type="button"
-                onClick={() => setPaused((current) => !current)}
-                className="mt-4 inline-flex items-center gap-2 rounded-full border border-line bg-surface/60 px-4 py-2 text-sm font-semibold transition-colors hover:border-tide/50"
-              >
-                {paused ? <PlayIcon size={16} /> : <PauseIcon size={16} />}
-                {paused ? 'Resume auto-play' : 'Pause auto-play'}
-              </button>
-            )}
+            <button
+              type="button"
+              onClick={() => setPaused((current) => !current)}
+              className="mt-4 inline-flex items-center gap-2 rounded-full border border-line bg-surface/60 px-4 py-2 text-sm font-semibold transition-colors hover:border-tide/50"
+            >
+              {paused ? <PlayIcon size={16} /> : <PauseIcon size={16} />}
+              {paused ? 'Resume auto-play' : 'Pause auto-play'}
+            </button>
           </div>
 
           <div className="order-1 lg:order-2 lg:sticky lg:top-28">

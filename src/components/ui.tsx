@@ -1,7 +1,6 @@
 import { animate, motion, useInView, useMotionValue, useSpring } from 'motion/react';
 import { useEffect, useRef, type PointerEvent, type ReactNode } from 'react';
 import { useFinePointer } from '../hooks';
-import { useReducedMotion } from '../motion';
 
 export const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -17,8 +16,6 @@ export function Reveal({
   y?: number;
   className?: string;
 }) {
-  const reduce = useReducedMotion();
-  if (reduce) return <div className={className}>{children}</div>;
   return (
     <motion.div
       className={className}
@@ -44,11 +41,9 @@ export function MaskLine({
   trigger?: 'load' | 'view';
   className?: string;
 }) {
-  const reduce = useReducedMotion();
   // Watch the clipping wrapper: the moving child sits outside it until it animates in, so it can't be observed.
   const wrapRef = useRef<HTMLSpanElement>(null);
   const inView = useInView(wrapRef, { once: true, margin: '0px 0px -12% 0px' });
-  if (reduce) return <span className={`block ${className ?? ''}`}>{children}</span>;
   const shown = trigger === 'load' || inView;
   return (
     <span ref={wrapRef} className="-mb-[0.14em] block overflow-hidden pb-[0.14em]">
@@ -99,7 +94,6 @@ export function Magnetic({
   strength?: number;
   className?: string;
 }) {
-  const reduce = useReducedMotion();
   const fine = useFinePointer();
   const ref = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
@@ -107,7 +101,7 @@ export function Magnetic({
   const sx = useSpring(x, { stiffness: 220, damping: 18, mass: 0.4 });
   const sy = useSpring(y, { stiffness: 220, damping: 18, mass: 0.4 });
 
-  if (reduce || !fine) return <div className={`inline-block ${className}`}>{children}</div>;
+  if (!fine) return <div className={`inline-block ${className}`}>{children}</div>;
 
   const onMove = (event: PointerEvent<HTMLDivElement>) => {
     const box = ref.current?.getBoundingClientRect();
@@ -137,12 +131,11 @@ export function Magnetic({
 export function Counter({ value, decimals = 0, suffix = '' }: { value: number; decimals?: number; suffix?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: '0px 0px -10% 0px' });
-  const reduce = useReducedMotion();
   const format = (n: number) => `${n.toFixed(decimals)}${suffix}`;
 
   useEffect(() => {
     const node = ref.current;
-    if (!node || reduce || !inView) return;
+    if (!node || !inView) return;
     const controls = animate(0, value, {
       duration: 1.8,
       ease: EASE,
@@ -152,12 +145,12 @@ export function Counter({ value, decimals = 0, suffix = '' }: { value: number; d
     });
     return () => controls.stop();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [inView, reduce, value, decimals, suffix]);
+  }, [inView, value, decimals, suffix]);
 
   return (
     <>
       <span ref={ref} aria-hidden="true">
-        {format(reduce ? value : 0)}
+        {format(0)}
       </span>
       <span className="sr-only">{format(value)}</span>
     </>

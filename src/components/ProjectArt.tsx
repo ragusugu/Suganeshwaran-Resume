@@ -1,7 +1,7 @@
 import type { ProjectArtId } from '../content';
 
 // Small animated schematics, one per project. Pure SVG + CSS keyframes (see index.css), so they cost almost
-// nothing and stop completely for visitors who prefer reduced motion.
+// nothing.
 
 const mono = { fontFamily: 'var(--font-mono)', fontSize: 9, fill: 'var(--ink-2)' } as const;
 

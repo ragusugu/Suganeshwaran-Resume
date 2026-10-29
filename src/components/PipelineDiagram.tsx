@@ -1,7 +1,6 @@
 import { AnimatePresence, animate, motion, useInView } from 'motion/react';
 import { useEffect, useRef, useState } from 'react';
 import { stages, type Stage, type StageKind } from '../content';
-import { useReducedMotion } from '../motion';
 import { PauseIcon, PlayIcon } from './Icons';
 import { Chip, EASE } from './ui';
 
@@ -52,7 +51,6 @@ const TRAVEL_S = 0.8;
 export function PipelineDiagram() {
   const rootRef = useRef<HTMLElement>(null);
   const packetRef = useRef<SVGGElement>(null);
-  const reduce = useReducedMotion();
   const visible = useInView(rootRef, { amount: 0.35 });
   const seen = useInView(rootRef, { once: true, amount: 0.1 });
 
@@ -64,7 +62,7 @@ export function PipelineDiagram() {
 
   // The pipeline "runs" by itself while it is on screen, and stops as soon as someone interacts with it.
   useEffect(() => {
-    if (reduce || !visible || userSelected || paused) {
+    if (!visible || userSelected || paused) {
       setRunning(-1);
       return;
     }
@@ -117,7 +115,7 @@ export function PipelineDiagram() {
       flight?.stop();
       packet?.style.setProperty('opacity', '0');
     };
-  }, [reduce, visible, userSelected, paused]);
+  }, [visible, userSelected, paused]);
 
   const selectedId = hovered ?? pinned ?? (running >= 0 ? MAIN_IDS[running] : 'sources');
   const selected = stageById[selectedId];
@@ -144,7 +142,7 @@ export function PipelineDiagram() {
               stroke="var(--ink-2)"
               strokeWidth="1.25"
               strokeDasharray="4 5"
-              initial={reduce ? false : { opacity: 0 }}
+              initial={{ opacity: 0 }}
               animate={seen ? { opacity: 0.4 } : undefined}
               transition={{ delay: 1.1, duration: 0.8 }}
             />
@@ -157,7 +155,7 @@ export function PipelineDiagram() {
               stroke="var(--ink-2)"
               strokeWidth="1.25"
               strokeDasharray="4 5"
-              initial={reduce ? false : { opacity: 0 }}
+              initial={{ opacity: 0 }}
               animate={seen ? { opacity: 0.3 } : undefined}
               transition={{ delay: 1.2, duration: 0.8 }}
             />
@@ -176,7 +174,7 @@ export function PipelineDiagram() {
                 strokeWidth="1.75"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                initial={reduce ? false : { pathLength: 0, opacity: 0 }}
+                initial={{ pathLength: 0, opacity: 0 }}
                 animate={seen ? { pathLength: 1, opacity: 0.75 } : undefined}
                 transition={{ delay: 0.25 + i * 0.16, duration: 0.6, ease: EASE }}
               />
@@ -204,7 +202,7 @@ export function PipelineDiagram() {
               aria-pressed={pinned === box.id}
               aria-controls="pipeline-detail"
               {...select(box.id)}
-              initial={reduce ? false : { opacity: 0, y: 12 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={seen ? { opacity: 1, y: 0 } : undefined}
               transition={{ delay: 0.15 + (isMain ? MAIN_IDS.indexOf(box.id) * 0.1 : 0.9), duration: 0.7, ease: EASE }}
               className="absolute flex items-center justify-center gap-2 rounded-2xl border bg-surface/80 px-2 text-center backdrop-blur-sm transition-[border-color,box-shadow,background-color] duration-300 hover:bg-surface"
@@ -286,9 +284,9 @@ export function PipelineDiagram() {
         <AnimatePresence mode="wait" initial={false}>
           <motion.div
             key={selected.id}
-            initial={reduce ? false : { opacity: 0, y: 8 }}
+            initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={reduce ? undefined : { opacity: 0, y: -8 }}
+            exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.25, ease: EASE }}
             className="grid gap-5 md:grid-cols-[1.5fr_1fr]"
           >
@@ -323,16 +321,14 @@ export function PipelineDiagram() {
             ? 'Click the selected stage again to let the pipeline run on its own.'
             : 'Hover or tap any stage to see what I built there.'}
         </figcaption>
-        {!reduce && (
-          <button
-            type="button"
-            onClick={() => setPaused((current) => !current)}
-            className="inline-flex items-center gap-2 rounded-full border border-line bg-surface/60 px-4 py-2 text-sm font-semibold transition-colors hover:border-tide/50"
-          >
-            {paused ? <PlayIcon size={16} /> : <PauseIcon size={16} />}
-            {paused ? 'Play animation' : 'Pause animation'}
-          </button>
-        )}
+        <button
+          type="button"
+          onClick={() => setPaused((current) => !current)}
+          className="inline-flex items-center gap-2 rounded-full border border-line bg-surface/60 px-4 py-2 text-sm font-semibold transition-colors hover:border-tide/50"
+        >
+          {paused ? <PlayIcon size={16} /> : <PauseIcon size={16} />}
+          {paused ? 'Play animation' : 'Pause animation'}
+        </button>
       </div>
     </figure>
   );

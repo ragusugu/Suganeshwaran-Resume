@@ -48,7 +48,6 @@
         try {
           var dark = localStorage.getItem('theme') === 'dark';
           document.documentElement.classList.toggle('dark', dark);
-          if (localStorage.getItem('motion') === 'on') document.documentElement.dataset.motion = 'full';
           if (dark) document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0b1e2b');
         } catch (e) {}
       })();

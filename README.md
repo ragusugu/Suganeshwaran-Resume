@@ -41,10 +41,8 @@ education and certifications. Edit it and the page updates; no component changes
 
 ## Accessibility and motion
 
-Animations follow the device's reduced-motion setting: with it on, loops stop and content appears without
-transitions. A visitor with that setting can still switch animations on for this site from the notice at the top of
-the page, and the choice is remembered. Auto-playing pieces (the pipeline, the AI walkthrough and the tool ribbon)
-have their own pause buttons. The site opens in light mode; the toggle switches to dark and remembers the choice.
+Animations always play. Auto-playing pieces (the pipeline, the AI walkthrough and the tool ribbon) have their own
+pause buttons. The site opens in light mode; the toggle switches to dark and remembers the choice.
 There is a skip link, visible focus styles, and the pipeline diagram is fully keyboard operable.
 
 ## Deploying

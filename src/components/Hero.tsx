@@ -1,10 +1,8 @@
 import { motion } from 'motion/react';
 import { profile, stats } from '../content';
-import { useReducedMotion } from '../motion';
 import { DataStreams } from './Backdrop';
 import { DownloadIcon, GithubIcon, LinkedinIcon, MailIcon, SparkleIcon } from './Icons';
 import { resumeUrl } from './Nav';
-import { MotionNotice } from './MotionNotice';
 import { PipelineDiagram } from './PipelineDiagram';
 import { Counter, EASE, Magnetic, MaskLine, Reveal } from './ui';
 
@@ -15,7 +13,6 @@ const socials = [
 ];
 
 export function Hero() {
-  const reduce = useReducedMotion();
   return (
     <section
       id="top"
@@ -24,7 +21,6 @@ export function Hero() {
     >
       <DataStreams />
       <div className="mx-auto max-w-6xl px-5 md:px-8">
-        <MotionNotice />
         <Reveal y={12} className="flex flex-wrap items-center gap-3">
           <p className="inline-flex items-center gap-3 rounded-full border border-line bg-surface/70 py-1.5 pl-3 pr-4 text-sm text-ink-2 backdrop-blur-sm">
             <span className="relative flex h-2 w-2">
@@ -61,7 +57,7 @@ export function Hero() {
         <motion.span
           aria-hidden="true"
           className="medal-gradient mt-6 block h-1 w-40 origin-left rounded-full"
-          initial={reduce ? false : { scaleX: 0 }}
+          initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
           transition={{ delay: 0.75, duration: 1.1, ease: EASE }}
         />

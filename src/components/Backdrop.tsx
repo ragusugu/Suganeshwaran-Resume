@@ -1,15 +1,13 @@
 import { useEffect, useRef } from 'react';
 import { useFinePointer } from '../hooks';
-import { useReducedMotion } from '../motion';
 
 /** Fixed page backdrop: a blueprint grid with a soft glow that follows the cursor. */
 export function Backdrop() {
   const ref = useRef<HTMLDivElement>(null);
-  const reduce = useReducedMotion();
   const fine = useFinePointer();
 
   useEffect(() => {
-    if (reduce || !fine) return;
+    if (!fine) return;
     let frame = 0;
     const onMove = (event: PointerEvent) => {
       cancelAnimationFrame(frame);
@@ -23,7 +21,7 @@ export function Backdrop() {
       window.removeEventListener('pointermove', onMove);
       cancelAnimationFrame(frame);
     };
-  }, [reduce, fine]);
+  }, [fine]);
 
   return (
     <div ref={ref} aria-hidden="true" className="pointer-events-none fixed inset-0 -z-10">

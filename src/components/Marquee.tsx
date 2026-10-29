@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useReducedMotion } from '../motion';
 import { PauseIcon, PlayIcon } from './Icons';
 
 const tools = [
@@ -26,7 +25,6 @@ const tools = [
 /** A ribbon of the tools I work with that loops continuously. Decorative: the full list is in the Stack section. */
 export function Marquee() {
   const [paused, setPaused] = useState(false);
-  const reduce = useReducedMotion();
 
   const group = (extra: string) => (
     <ul className={`flex shrink-0 items-center gap-10 pr-10 ${extra}`}>
@@ -54,18 +52,16 @@ export function Marquee() {
           {group('marquee-dup')}
         </div>
       </div>
-      {!reduce && (
-        <div className="grid w-16 shrink-0 place-items-center border-l border-line">
-          <button
-            type="button"
-            onClick={() => setPaused((current) => !current)}
-            aria-label={paused ? 'Play the tool ribbon' : 'Pause the tool ribbon'}
-            className="grid h-10 w-10 place-items-center rounded-full border border-line bg-surface/90 text-ink-2 transition-colors hover:border-tide/50 hover:text-ink active:scale-95"
-          >
-            {paused ? <PlayIcon size={16} /> : <PauseIcon size={16} />}
-          </button>
-        </div>
-      )}
+      <div className="grid w-16 shrink-0 place-items-center border-l border-line">
+        <button
+          type="button"
+          onClick={() => setPaused((current) => !current)}
+          aria-label={paused ? 'Play the tool ribbon' : 'Pause the tool ribbon'}
+          className="grid h-10 w-10 place-items-center rounded-full border border-line bg-surface/90 text-ink-2 transition-colors hover:border-tide/50 hover:text-ink active:scale-95"
+        >
+          {paused ? <PlayIcon size={16} /> : <PauseIcon size={16} />}
+        </button>
+      </div>
     </div>
   );
 }
