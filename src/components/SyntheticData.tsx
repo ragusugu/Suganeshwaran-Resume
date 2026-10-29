@@ -1,7 +1,7 @@
 import { AnimatePresence, motion, useInView, useReducedMotion } from 'motion/react';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { synthetic } from '../content';
-import { CheckIcon, DownloadIcon, SparkleIcon } from './Icons';
+import { CheckIcon, DownloadIcon, PauseIcon, PlayIcon, SparkleIcon } from './Icons';
 import { Chip, EASE, Reveal, SectionHeading, SpotlightCard } from './ui';
 
 const STEP_MS = 4200;
@@ -260,11 +260,11 @@ export function SyntheticData() {
   const reduce = useReducedMotion();
   const visible = useInView(rootRef, { amount: 0.4 });
   const [step, setStep] = useState(0);
-  const [pinned, setPinned] = useState(false);
-  const playing = visible && !pinned && !reduce;
+  const [paused, setPaused] = useState(false);
+  const playing = visible && !paused && !reduce;
   const Active = scenes[step];
 
-  // Walk through the steps by itself while it is on screen. Clicking a step takes over.
+  // Walk through the steps by itself while it is on screen. Clicking a step, or the pause button, stops it.
   useEffect(() => {
     if (!playing) return;
     const timer = setTimeout(() => setStep((current) => (current + 1) % synthetic.steps.length), STEP_MS);
@@ -292,7 +292,7 @@ export function SyntheticData() {
                       aria-current={active ? 'step' : undefined}
                       onClick={() => {
                         setStep(i);
-                        setPinned(true);
+                        setPaused(true);
                       }}
                       className={`relative flex w-full gap-4 rounded-2xl px-4 py-3.5 text-left transition-colors ${
                         active ? 'bg-surface/80 ring-1 ring-tide/40' : 'hover:bg-surface/50'
@@ -311,7 +311,7 @@ export function SyntheticData() {
                         >
                           {item.title}
                         </span>
-                        {active && <span className="mt-1 block leading-relaxed text-ink-2">{item.body}</span>}
+                        <span className="mt-1 block leading-relaxed text-ink-2">{item.body}</span>
                       </span>
                       {active && playing && (
                         <motion.span
@@ -328,13 +328,14 @@ export function SyntheticData() {
                 );
               })}
             </ol>
-            {pinned && (
+            {!reduce && (
               <button
                 type="button"
-                onClick={() => setPinned(false)}
-                className="mt-3 rounded-full border border-line bg-surface/60 px-4 py-2 text-sm font-semibold transition-colors hover:border-tide/50"
+                onClick={() => setPaused((current) => !current)}
+                className="mt-4 inline-flex items-center gap-2 rounded-full border border-line bg-surface/60 px-4 py-2 text-sm font-semibold transition-colors hover:border-tide/50"
               >
-                Play automatically
+                {paused ? <PlayIcon size={16} /> : <PauseIcon size={16} />}
+                {paused ? 'Resume auto-play' : 'Pause auto-play'}
               </button>
             )}
           </div>

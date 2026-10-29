@@ -1,6 +1,7 @@
 import { AnimatePresence, animate, motion, useInView, useReducedMotion } from 'motion/react';
 import { useEffect, useRef, useState } from 'react';
 import { stages, type Stage, type StageKind } from '../content';
+import { PauseIcon, PlayIcon } from './Icons';
 import { Chip, EASE } from './ui';
 
 // Diagram geometry, in SVG user units. Buttons are positioned with the same numbers (as percentages)
@@ -57,11 +58,12 @@ export function PipelineDiagram() {
   const [running, setRunning] = useState(-1); // index into MAIN_IDS of the stage the packet just reached
   const [hovered, setHovered] = useState<string | null>(null);
   const [pinned, setPinned] = useState<string | null>(null);
+  const [paused, setPaused] = useState(false);
   const userSelected = hovered !== null || pinned !== null;
 
   // The pipeline "runs" by itself while it is on screen, and stops as soon as someone interacts with it.
   useEffect(() => {
-    if (reduce || !visible || userSelected) {
+    if (reduce || !visible || userSelected || paused) {
       setRunning(-1);
       return;
     }
@@ -114,7 +116,7 @@ export function PipelineDiagram() {
       flight?.stop();
       packet?.style.setProperty('opacity', '0');
     };
-  }, [reduce, visible, userSelected]);
+  }, [reduce, visible, userSelected, paused]);
 
   const selectedId = hovered ?? pinned ?? (running >= 0 ? MAIN_IDS[running] : 'sources');
   const selected = stageById[selectedId];
@@ -314,11 +316,23 @@ export function PipelineDiagram() {
           </motion.div>
         </AnimatePresence>
       </div>
-      <figcaption className="mt-3 text-center text-sm text-ink-2 md:text-left">
-        {pinned
-          ? 'Click the selected stage again to let the pipeline run on its own.'
-          : 'Hover or tap any stage to see what I built there.'}
-      </figcaption>
+      <div className="mt-3 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 md:justify-between">
+        <figcaption className="text-center text-sm text-ink-2 md:text-left">
+          {pinned
+            ? 'Click the selected stage again to let the pipeline run on its own.'
+            : 'Hover or tap any stage to see what I built there.'}
+        </figcaption>
+        {!reduce && (
+          <button
+            type="button"
+            onClick={() => setPaused((current) => !current)}
+            className="inline-flex items-center gap-2 rounded-full border border-line bg-surface/60 px-4 py-2 text-sm font-semibold transition-colors hover:border-tide/50"
+          >
+            {paused ? <PlayIcon size={16} /> : <PauseIcon size={16} />}
+            {paused ? 'Play animation' : 'Pause animation'}
+          </button>
+        )}
+      </div>
     </figure>
   );
 }

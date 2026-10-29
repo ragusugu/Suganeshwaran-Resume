@@ -107,6 +107,19 @@ export const SparkleIcon = (p: IconProps) => (
   </Icon>
 );
 
+export const PauseIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <rect x="6" y="5" width="4" height="14" rx="1" />
+    <rect x="14" y="5" width="4" height="14" rx="1" />
+  </Icon>
+);
+
+export const PlayIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M7 4.5v15l12-7.5z" />
+  </Icon>
+);
+
 export const AwardIcon = (p: IconProps) => (
   <Icon {...p}>
     <circle cx="12" cy="9" r="6" />
