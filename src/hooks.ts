@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 
 export type Theme = 'light' | 'dark';
 
-/** Theme follows the visitor's system setting until they pick one explicitly. */
+/** Light is the default. The visitor can switch to dark, and that choice is remembered. */
 export function useTheme(): [Theme, () => void] {
   const [theme, setTheme] = useState<Theme>(() =>
     typeof document !== 'undefined' && document.documentElement.classList.contains('dark') ? 'dark' : 'light',
@@ -10,22 +10,10 @@ export function useTheme(): [Theme, () => void] {
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', theme === 'dark');
+    document
+      .querySelector('meta[name="theme-color"]')
+      ?.setAttribute('content', theme === 'dark' ? '#0b1e2b' : '#f1f4f6');
   }, [theme]);
-
-  useEffect(() => {
-    const media = window.matchMedia('(prefers-color-scheme: dark)');
-    const onChange = (event: MediaQueryListEvent) => {
-      let hasChoice = false;
-      try {
-        hasChoice = localStorage.getItem('theme') !== null;
-      } catch {
-        /* storage unavailable */
-      }
-      if (!hasChoice) setTheme(event.matches ? 'dark' : 'light');
-    };
-    media.addEventListener('change', onChange);
-    return () => media.removeEventListener('change', onChange);
-  }, []);
 
   const toggle = useCallback(() => {
     setTheme((current) => {

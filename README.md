@@ -34,7 +34,7 @@ npm run preview     # serve the production build locally
 All text lives in [`src/content.ts`](src/content.ts): profile, stats, pipeline stages, experience, projects, stack,
 education and certifications. Edit it and the page updates; no component changes needed.
 
-- Design tokens (colors, fonts) are at the top of [`src/index.css`](src/index.css).
+- Design tokens (colors, fonts, light and dark) are at the top of [`src/index.css`](src/index.css).
 - Sections are in [`src/components/`](src/components).
 - The downloadable résumé is `public/Suganeshwaran-R-Data-Engineer-Resume.pdf`. Replace the file, keeping the name.
 - The social preview image is `public/og.png` (1200×630).
@@ -42,7 +42,7 @@ education and certifications. Edit it and the page updates; no component changes
 ## Accessibility and motion
 
 Animations respect the visitor's reduced-motion setting: loops stop and content appears without transitions.
-The theme follows the system setting until the visitor picks one with the toggle. There is a skip link, visible
+The site opens in light mode; the toggle switches to dark and remembers the choice. There is a skip link, visible
 focus styles, and the pipeline diagram is fully keyboard operable.
 
 ## Deploying
