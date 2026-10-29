@@ -3,20 +3,23 @@ import React, { useState, useEffect, useRef } from 'react';
 
 // --- Assets Mapping ---
 const CERT_DOCS = [
-  { id: 1, name: "Adobe Photoshop and Coreldraw Design", issuer: "MPTI", icon: "fa-palette" },
-  { id: 2, name: "AI Agent Fundamentals", issuer: "Databricks", icon: "fa-robot" },
-  { id: 3, name: "Basics Of Python", issuer: "Infosys & Work Exp", icon: "fa-terminal" },
-  { id: 4, name: "Blockchain and Web 3.0 Workshop", issuer: "MIT Chennai", icon: "fa-link" },
-  { id: 5, name: "Blockchain Basics", issuer: "Great Learning", icon: "fa-cubes" },
-  { id: 6, name: "BlockChain", issuer: "Simplilearn", icon: "fa-network-wired" },
-  { id: 7, name: "Data Engineering", issuer: "Databricks", icon: "fa-database" },
-  { id: 8, name: "FrontEnd Development", issuer: "Great Learning", icon: "fa-laptop-code" },
-  { id: 9, name: "Generative AI for Everyone", issuer: "Simplilearn", icon: "fa-brain" },
-  { id: 10, name: "IOT and Blockchain Tech Workshop", issuer: "GCE Salem", icon: "fa-microchip" },
-  { id: 11, name: "TCS-ion NQT Scorecard (77.80%)", issuer: "TCS-ion", icon: "fa-file-invoice" }
+  { id: 1, name: "Databricks Fundamentals", issuer: "Databricks Academy Accreditation", icon: "fa-database" },
+  { id: 2, name: "Generative AI Fundamentals", issuer: "Databricks Academy", icon: "fa-brain" },
+  { id: 3, name: "Generative AI Course", issuer: "Simplilearn", icon: "fa-robot" },
+  { id: 4, name: "TCS NQT National Level Test (77.80%)", issuer: "TCS", icon: "fa-file-invoice" },
+  { id: 5, name: "Blockchain & Web 3.0 Workshop", issuer: "EPNS SDE, MIT Chennai", icon: "fa-link" },
+  { id: 6, name: "IoT and Blockchain: Challenges and Applications Workshop", issuer: "GCE Salem", icon: "fa-microchip" }
 ];
 
 const DRIVE_LINK = "https://drive.google.com/drive/folders/1FLE-2-0lfFPQpUHvOMDe-nQ0RWjxk9Lu";
+
+const NAV_ITEMS = [
+  { label: 'About', id: 'about' },
+  { label: 'Experience', id: 'experience' },
+  { label: 'Projects', id: 'projects' },
+  { label: 'Education', id: 'education' },
+  { label: 'Certifications', id: 'certificates' }
+];
 
 const useReveal = () => {
   const ref = useRef<HTMLDivElement>(null);
@@ -169,12 +172,12 @@ const Navbar = ({ darkMode, setDarkMode }: { darkMode: boolean; setDarkMode: (v:
           SUGANESHWARAN
         </a>
 
-        <div className="hidden lg:flex items-center gap-8">
-          {['About', 'Experience', 'Education', 'Awards'].map((label) => (
-            <a 
-              key={label}
-              href={`#${label.toLowerCase() === 'awards' ? 'certificates' : label.toLowerCase()}`} 
-              onClick={(e) => handleNavClick(e, `#${label.toLowerCase() === 'awards' ? 'certificates' : label.toLowerCase()}`)}
+        <div className="hidden lg:flex items-center gap-6">
+          {NAV_ITEMS.map(({ label, id }) => (
+            <a
+              key={id}
+              href={`#${id}`}
+              onClick={(e) => handleNavClick(e, `#${id}`)}
               className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-white transition-all relative group"
             >
               {label}
@@ -205,11 +208,11 @@ const Navbar = ({ darkMode, setDarkMode }: { darkMode: boolean; setDarkMode: (v:
         <div className="absolute inset-0 bg-slate-950/60 backdrop-blur-sm" onClick={() => setIsOpen(false)}></div>
         <div className={`absolute right-0 top-0 h-screen w-3/4 max-w-sm bg-white dark:bg-slate-950 shadow-2xl p-10 flex flex-col gap-8 transition-transform duration-500 cubic-bezier(0.4, 0, 0.2, 1) ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
           <div className="flex flex-col gap-6 mt-10">
-            {['About', 'Experience', 'Education', 'Awards'].map((label) => (
-              <a 
-                key={label}
-                href={`#${label.toLowerCase() === 'awards' ? 'certificates' : label.toLowerCase()}`} 
-                onClick={(e) => handleNavClick(e, `#${label.toLowerCase() === 'awards' ? 'certificates' : label.toLowerCase()}`)}
+            {NAV_ITEMS.map(({ label, id }) => (
+              <a
+                key={id}
+                href={`#${id}`}
+                onClick={(e) => handleNavClick(e, `#${id}`)}
                 className="text-lg font-black uppercase tracking-widest text-slate-900 dark:text-white transition-colors hover:text-indigo-600"
               >
                 {label}
@@ -238,7 +241,7 @@ const Hero = () => (
            Open to Global Opportunities
         </div>
         <div className="flex flex-wrap items-center justify-center gap-2 md:gap-3">
-          {["Big Data", "Generative AI", "Blockchain"].map((tag, i) => (
+          {["Data Engineering", "Generative AI", "Blockchain"].map((tag, i) => (
             <span key={i} className="px-3 py-1.5 md:px-5 md:py-2 rounded-xl bg-white/40 dark:bg-indigo-500/10 backdrop-blur-md text-indigo-600 dark:text-indigo-300 text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] border border-white/50 dark:border-indigo-500/20 transition-transform hover:scale-110 duration-300">{tag}</span>
           ))}
         </div>
@@ -246,8 +249,11 @@ const Hero = () => (
       <h1 className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-black mb-6 md:mb-8 tracking-tighter dark:text-white leading-[1.1] md:leading-[0.95] animate-slide-up animation-delay-200">
         Architecting <span className="gradient-text">Data</span> <br className="hidden md:block" /> Powering the <span className="gradient-text">Future</span>.
       </h1>
-      <p className="text-base sm:text-lg md:text-2xl text-slate-600 dark:text-slate-400 mb-10 md:mb-12 max-w-2xl mx-auto font-medium animate-slide-up animation-delay-400">
-        Building scalable infrastructure at the intersection of Big Data and Artificial Intelligence.
+      <p className="text-base sm:text-lg md:text-2xl text-slate-600 dark:text-slate-400 mb-6 max-w-2xl mx-auto font-medium animate-slide-up animation-delay-400">
+        Data Engineer with 3+ years of experience at Saturam building scalable data pipelines and reliable data platforms on AWS and Azure.
+      </p>
+      <p className="text-sm md:text-base text-slate-500 dark:text-slate-400 mb-10 md:mb-12 max-w-3xl mx-auto leading-relaxed animate-slide-up animation-delay-400">
+        Skilled in Python, Apache Airflow, Databricks (PySpark, Spark SQL, Delta Lake), Medallion architecture, and containerized delivery with Docker, Kubernetes, and Jenkins CI/CD. Built an Azure OpenAI-based synthetic data generator and a machine learning fraud-detection pipeline. Committed to delivering high-quality data solutions that support analytics, operational systems, and data-driven decision-making.
       </p>
       
       <div className="flex flex-col items-center gap-6 md:gap-10 animate-slide-up animation-delay-600">
@@ -283,6 +289,7 @@ const Experience = () => {
               <div>
                 <h3 className="text-xl md:text-3xl font-black text-slate-900 dark:text-white">Big Data Engineer</h3>
                 <p className="text-indigo-600 dark:text-indigo-400 font-bold uppercase text-[10px] md:text-sm tracking-widest">SATURAM</p>
+                <p className="text-slate-500 dark:text-slate-400 font-medium text-xs md:text-sm mt-1">Advanced Data Engineering for Cloud &amp; ML Ecosystem</p>
               </div>
             </div>
             <div className="shrink-0 self-start md:self-center px-4 py-1.5 bg-indigo-500/10 dark:bg-indigo-500/20 border border-indigo-500/20 rounded-xl font-black text-[9px] md:text-xs text-indigo-600 dark:text-indigo-300 uppercase tracking-widest">
@@ -292,13 +299,15 @@ const Experience = () => {
           <div className="grid lg:grid-cols-12 gap-8 md:gap-10">
             <div className="lg:col-span-7 text-slate-600 dark:text-slate-400 leading-relaxed font-medium text-sm md:text-lg space-y-6 md:space-y-8">
               {[
-                { icon: "fa-tachometer-alt", color: "blue", text: "Architecting scalable cloud environments and high-performance data pipelines." },
-                { icon: "fa-docker", color: "cyan", text: "Deploying containerized microservices with Docker and Kubernetes." },
-                { icon: "fa-wind", color: "orange", text: "Orchestrating automated workflows using Apache Airflow for production reliability." }
+                { icon: "fas fa-wind", color: "orange", text: "Architected and monitored complex data workflows in Apache Airflow with robust dependency handling, keeping production-grade pipelines reliable." },
+                { icon: "fab fa-docker", color: "cyan", text: "Managed scalable environments using Docker and Kubernetes (Pods, Deployments, Services)." },
+                { icon: "fab fa-jenkins", color: "red", text: "Implemented CI/CD processes with Jenkins to automate deployments across AWS and Azure." },
+                { icon: "fas fa-wrench", color: "emerald", text: "Troubleshot frontend and backend environments to maintain stability and performance during high-traffic periods." },
+                { icon: "fas fa-brain", color: "purple", text: "Built and deployed the AI Synthetic Data Generator, an Azure OpenAI-based pilot for multi-table synthetic data (see Projects)." }
               ].map((item, i) => (
                 <div key={i} className="flex gap-4 group/item hover:translate-x-2 transition-transform duration-300">
                   <div className={`w-8 h-8 md:w-10 md:h-10 shrink-0 bg-${item.color}-500/10 dark:bg-${item.color}-500/20 rounded-lg flex items-center justify-center text-${item.color}-500`}>
-                    <i className={`fas ${item.icon} text-xs md:text-base`}></i>
+                    <i className={`${item.icon} text-xs md:text-base`}></i>
                   </div>
                   <p dangerouslySetInnerHTML={{ __html: item.text }} />
                 </div>
@@ -314,9 +323,11 @@ const Experience = () => {
                     { icon: "fab fa-docker", label: "Docker" },
                     { icon: "fas fa-dharmachakra", label: "K8s" },
                     { icon: "fas fa-wind", label: "Airflow" },
-                    { icon: "fab fa-microsoft", label: "Azure" },
+                    { icon: "fas fa-layer-group", label: "Databricks" },
                     { icon: "fab fa-aws", label: "AWS" },
-                    { icon: "fas fa-database", label: "Snowflake" }
+                    { icon: "fab fa-microsoft", label: "Azure" },
+                    { icon: "fab fa-jenkins", label: "Jenkins" },
+                    { icon: "fas fa-cubes", label: "Terraform" }
                   ].map((skill, idx) => (
                     <div key={idx} className="flex items-center gap-2 p-2.5 bg-white/60 dark:bg-slate-900/60 rounded-xl border border-white dark:border-slate-800 shadow-sm hover:scale-105 hover:bg-white transition-all duration-300">
                       <i className={`${skill.icon} text-indigo-500 text-xs md:text-sm`}></i>
@@ -333,20 +344,92 @@ const Experience = () => {
   );
 };
 
+const PROJECTS = [
+  {
+    title: "AI Synthetic Data Generator (Azure)",
+    icon: "fa-robot",
+    tech: ["Azure OpenAI", "Flask", "Waitress", "React", "Vite", "PostgreSQL", "Azure Blob Storage", "Azure Key Vault", "Microsoft Entra ID"],
+    points: [
+      "Built and deployed an Azure-based pilot that lets authenticated users upload schemas, analyze table relationships with Azure OpenAI, generate realistic multi-table synthetic datasets, and export results as CSV, ZIP, or Excel files.",
+      "Developed a React/Vite frontend and a Flask/Waitress backend with APIs for schema ingestion, parallel AI analysis, row-count recommendations, error-rate suggestions, LLM seed previews, full data generation, background jobs, and Blob-based downloads.",
+      "Integrated PostgreSQL, Blob Storage, Key Vault, Microsoft Entra ID OAuth and Google SSO, managed identity, audit logging, SAS-token downloads, and Azure Marketplace SaaS fulfillment for secure authentication, secrets management, subscription handling, and scalable cloud deployment."
+    ]
+  },
+  {
+    title: "Automated AWS Data Lake (Medallion Architecture)",
+    icon: "fa-layer-group",
+    tech: ["Terraform", "AWS (EC2, Glue, Lambda, VPC, RDS)", "Python", "Streamlit"],
+    points: [
+      "Used Terraform (Infrastructure as Code) to provision a full-stack AWS environment including VPC, EC2 instances, and serverless Lambda functions.",
+      "Developed a 3-tier Medallion data pipeline: ingested raw Kaggle datasets into RDS, processed Bronze and Silver layers with AWS Glue, and curated Gold aggregates for business intelligence.",
+      "Built an interactive Streamlit dashboard to visualize Gold-layer insights in real time.",
+      "Applied AI-driven natural language programming (vibe coding) to accelerate development cycles and improve code quality."
+    ]
+  },
+  {
+    title: "Blockchain ML Fraud Detection Platform",
+    icon: "fa-user-shield",
+    tech: ["Web3.py", "Ethereum data", "Flask", "React", "PostgreSQL", "Kubernetes"],
+    points: [
+      "Built high-performance ETL pipelines to extract and process Ethereum blockchain data using asynchronous APIs.",
+      "Integrated a machine learning model to detect high-risk crypto transactions, with automated fallback handling.",
+      "Deployed with containerization, full logging, and monitoring, ensuring 99.5%+ uptime for real-time fraud analysis."
+    ]
+  }
+];
+
+const Projects = () => {
+  const revealRef = useReveal();
+  return (
+    <section id="projects" className="py-20 md:py-32 px-6 overflow-hidden">
+      <div ref={revealRef} className="max-w-6xl mx-auto relative z-10 reveal">
+        <h2 className="text-2xl md:text-4xl font-black mb-10 md:mb-16 dark:text-white tracking-tight uppercase">Projects</h2>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
+          {PROJECTS.map((project, i) => (
+            <div key={i} className="group flex flex-col bg-white/40 dark:bg-slate-900/40 backdrop-blur-xl border border-white/40 dark:border-slate-800/50 p-6 md:p-8 rounded-3xl shadow-2xl hover:shadow-indigo-500/10 hover:-translate-y-2 transition-all duration-500">
+              <div className="w-12 h-12 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-xl flex items-center justify-center shadow-xl mb-6 group-hover:rotate-12 transition-transform duration-500">
+                <i className={`fas ${project.icon} text-white text-xl`}></i>
+              </div>
+              <h3 className="text-lg md:text-xl font-black text-slate-900 dark:text-white tracking-tight leading-tight mb-4">{project.title}</h3>
+              <div className="flex flex-wrap gap-2 mb-6">
+                {project.tech.map((t, ti) => (
+                  <span key={ti} className="px-2.5 py-1 bg-indigo-500/10 dark:bg-indigo-500/20 border border-indigo-500/20 rounded-lg text-[9px] font-black uppercase tracking-widest text-indigo-600 dark:text-indigo-300">{t}</span>
+                ))}
+              </div>
+              <ul className="space-y-3 text-slate-600 dark:text-slate-400 text-sm leading-relaxed font-medium">
+                {project.points.map((point, pi) => (
+                  <li key={pi} className="flex gap-3">
+                    <span className="mt-2 w-1.5 h-1.5 shrink-0 rounded-full bg-indigo-500"></span>
+                    <span>{point}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
 const Skills = () => {
   const revealRef = useReveal();
   const categories = [
-    { title: "Languages", icon: "fa-code", skills: ["Python", "SQL", "JavaScript"] },
-    { title: "Big Data", icon: "fa-database", skills: ["Snowflake", "Redshift", "PostgreSQL"] },
-    { title: "Cloud & Dev", icon: "fa-cloud", skills: ["AWS", "Azure", "Docker", "K8s"] },
-    { title: "AI/Blockchain", icon: "fa-brain", skills: ["Generative AI", "LLMs", "Smart Contracts"] }
+    { title: "Programming", icon: "fa-code", skills: ["Python", "SQL", "Shell Scripting"] },
+    { title: "Data Engineering", icon: "fa-database", skills: ["Apache Airflow", "Databricks (PySpark, Spark SQL, Delta Lake)", "AWS Glue", "ETL/ELT", "Medallion Architecture"] },
+    { title: "AWS Cloud", icon: "fa-cloud", skills: ["S3", "Glue", "Lambda", "EC2", "VPC", "IAM", "RDS"] },
+    { title: "Azure Cloud", icon: "fa-cloud", skills: ["Azure OpenAI", "Blob Storage", "Key Vault", "Microsoft Entra ID"] },
+    { title: "DevOps", icon: "fa-gears", skills: ["Docker", "Kubernetes", "Jenkins", "CI/CD", "Terraform (IaC)", "Git"] },
+    { title: "Databases", icon: "fa-server", skills: ["PostgreSQL", "MySQL", "Snowflake"] },
+    { title: "Frameworks & Tools", icon: "fa-screwdriver-wrench", skills: ["Flask", "React", "Vite", "Streamlit", "AI-assisted development"] },
+    { title: "AI & Blockchain", icon: "fa-brain", skills: ["Azure OpenAI", "ML model integration", "Web3", "Web3.py", "Ethereum data extraction"] }
   ];
 
   return (
     <section id="skills" className="py-20 md:py-32 px-6 border-y border-slate-200/30 dark:border-slate-800/30 overflow-hidden">
       <div ref={revealRef} className="max-w-6xl mx-auto relative z-10 reveal">
         <div className="text-center mb-12 md:mb-20">
-          <h2 className="text-2xl md:text-4xl font-black dark:text-white uppercase mb-4 tracking-tight">Expertise</h2>
+          <h2 className="text-2xl md:text-4xl font-black dark:text-white uppercase mb-4 tracking-tight">Technical Skills</h2>
           <div className="w-12 md:w-16 h-1 bg-indigo-600 mx-auto rounded-full"></div>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
@@ -372,8 +455,8 @@ const Skills = () => {
 const Education = () => {
   const revealRef = useReveal();
   const educationData = [
-    { degree: "B.E. Computer Science", school: "GCE Salem", year: "2020 – 23" },
-    { degree: "Diploma in CS", school: "Muthayammal Poly", year: "2018 – 20" }
+    { degree: "Bachelor of Engineering (B.E.), Computer Science and Engineering", school: "Government College of Engineering, Salem", year: "2020 – 2023" },
+    { degree: "Diploma in Computer Science and Engineering", school: "Muthayammal Polytechnic Institution", year: "2018 – 2020" }
   ];
 
   return (
@@ -414,7 +497,7 @@ const Certificates = () => {
   return (
     <section id="certificates" className="py-20 md:py-24 px-6 text-center">
       <div ref={revealRef} className="max-w-4xl mx-auto reveal">
-        <h2 className="text-2xl md:text-4xl font-black mb-10 dark:text-white uppercase tracking-tight">Awards</h2>
+        <h2 className="text-2xl md:text-4xl font-black mb-10 dark:text-white uppercase tracking-tight">Certifications &amp; Training</h2>
         <div className="mb-10">
           <a href={DRIVE_LINK} target="_blank" className="inline-flex items-center gap-3 px-6 py-3 bg-indigo-600 text-white rounded-xl font-black text-[10px] uppercase tracking-widest shadow-lg hover:shadow-indigo-500/50 hover:scale-105 active:scale-95 transition-all">
             <i className="fab fa-google-drive"></i>
@@ -453,6 +536,7 @@ const Footer = () => (
         <a href="https://github.com/ragusugu" target="_blank" className="text-slate-400 hover:text-indigo-600 hover:scale-125 transition-all"><i className="fab fa-github"></i></a>
         <a href="https://linkedin.com/in/suganeshwaran-r-388205233" target="_blank" className="text-slate-400 hover:text-indigo-600 hover:scale-125 transition-all"><i className="fab fa-linkedin"></i></a>
       </div>
+      <p className="text-xs md:text-sm text-slate-500 dark:text-slate-400 font-medium mb-6">Languages: English, Tamil</p>
       <p className="text-[9px] md:text-[10px] text-slate-400 uppercase tracking-[0.4em] font-black">Suganeshwaran R • INDIA • Global Citizen</p>
     </div>
   </footer>
@@ -472,6 +556,7 @@ export default function App() {
       <main className="relative z-10">
         <Hero />
         <Experience />
+        <Projects />
         <Skills />
         <Education />
         <Certificates />
