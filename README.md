@@ -47,5 +47,10 @@ focus styles, and the pipeline diagram is fully keyboard operable.
 
 ## Deploying
 
-`.github/workflows/deploy.yml` builds the site and publishes it to GitHub Pages. It runs on Node 22 because
+`.github/workflows/deploy.yml` builds the site and publishes it to GitHub Pages on every push to the
+`claude/optimistic-meitner-ttk7qy` branch (or by hand from the Actions tab). It runs on Node 22 because
 Tailwind v4 requires Node 20 or newer.
+
+To host from a different branch, change `on.push.branches` in that file. If the deploy step is refused with
+"not allowed to deploy to github-pages", add the branch under Settings, Environments, github-pages,
+Deployment branches.

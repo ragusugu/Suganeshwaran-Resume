@@ -1,8 +1,12 @@
 name: Deploy Vite site to GitHub Pages
 
+# This branch hosts the site: every push to it builds and publishes to GitHub Pages.
+# "Run workflow" in the Actions tab also works, for a redeploy without a new commit.
 on:
   push:
-    branches: [main]
+    branches:
+      - claude/optimistic-meitner-ttk7qy
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -20,6 +24,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # Node 22: Tailwind CSS v4 and the Vite React plugin need Node 20.19 or newer.
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -31,7 +36,7 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Upload artifact
+      - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: dist
@@ -39,6 +44,12 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
     steps:
       - name: Deploy to GitHub Pages
+        id: deployment
         uses: actions/deploy-pages@v4
