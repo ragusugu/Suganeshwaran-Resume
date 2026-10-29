@@ -270,10 +270,11 @@
 }
 
 .marquee-track {
-  animation: marquee 48s linear infinite;
+  animation: marquee 34s linear infinite;
+  will-change: transform;
 }
 
-.marquee:hover .marquee-track {
+.marquee[data-paused='true'] .marquee-track {
   animation-play-state: paused;
 }
 
