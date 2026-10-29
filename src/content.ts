@@ -280,11 +280,20 @@ export const stackGroups: StackGroup[] = [
 // ---------------------------------------------------------------------
 // Education and certifications
 // ---------------------------------------------------------------------
-export const education = [
+export interface EducationItem {
+  degree: string;
+  school: string;
+  years: string;
+  /** Result or class stated on the degree certificate. */
+  note?: string;
+}
+
+export const education: EducationItem[] = [
   {
     degree: 'Bachelor of Engineering (B.E.), Computer Science and Engineering',
     school: 'Government College of Engineering, Salem',
     years: '2020 – 2023',
+    note: 'First Class with Distinction',
   },
   {
     degree: 'Diploma in Computer Science and Engineering',
@@ -293,11 +302,141 @@ export const education = [
   },
 ];
 
-export const certifications = [
-  { name: 'Databricks Fundamentals', issuer: 'Databricks Academy Accreditation' },
-  { name: 'Generative AI Fundamentals', issuer: 'Databricks Academy' },
-  { name: 'Generative AI Course', issuer: 'Simplilearn' },
-  { name: 'TCS NQT National Level Test', issuer: 'Score: 77.80%' },
-  { name: 'Blockchain & Web 3.0 Workshop', issuer: 'EPNS SDE, MIT Chennai' },
-  { name: 'IoT and Blockchain: Challenges and Applications Workshop', issuer: 'GCE Salem' },
+export interface Certification {
+  name: string;
+  issuer: string;
+  /** Month and year printed on the certificate; absent when the document shows none. */
+  date?: string;
+  /** The original document, in the public Drive folder. */
+  href: string;
+}
+
+export interface CertificationGroup {
+  title: string;
+  items: Certification[];
+}
+
+// Read from the certificates in the Drive folder (profile.credentials), newest first within each group.
+export const certificationGroups: CertificationGroup[] = [
+  {
+    title: 'AI and data',
+    items: [
+      {
+        name: 'Agentic AI Foundations',
+        issuer: 'Accenture LearnVantage, AWS Partner training',
+        date: 'Sep 2026',
+        href: 'https://drive.google.com/file/d/19SmsqY1ypCkV-O03FxLHlSDiMLRMaGab/view',
+      },
+      {
+        name: 'Yuva AI for All',
+        issuer: 'nasscom FutureSkills Prime',
+        date: 'May 2026',
+        href: 'https://drive.google.com/file/d/1VFwqvlxUSAOrd66JHCTrurZDbCpfxSC0/view',
+      },
+      {
+        name: 'AI Tools Workshop',
+        issuer: 'be10X',
+        date: 'Mar 2026',
+        href: 'https://drive.google.com/file/d/1INmfRbNNEeIPD23rNt16wESDR3_8X6Xn/view',
+      },
+      {
+        name: 'Knowledge Check: Get Started with Databricks for Data Engineering',
+        issuer: 'Databricks Academy',
+        date: 'Dec 2025',
+        href: 'https://drive.google.com/file/d/1ZPH7Ri9BD1DUbkw65unMXrt-nReNUNYo/view',
+      },
+      {
+        name: 'AI Agent Fundamentals',
+        issuer: 'Databricks Academy',
+        date: 'Dec 2025',
+        href: 'https://drive.google.com/file/d/1a-fkSMm6juziYl9ovzVuf45JAIj5ZCNm/view',
+      },
+      {
+        name: 'Generative AI for Everyone',
+        issuer: 'Simplilearn SkillUP',
+        date: 'Dec 2025',
+        href: 'https://drive.google.com/file/d/1wohabXY-03kaLlnikMNxJTqOSxRHD5D9/view',
+      },
+      {
+        name: 'Generative AI Mastermind',
+        issuer: 'Outskill',
+        href: 'https://drive.google.com/file/d/1vAwyPra9Wr0zNo_uQjToOF_LUnvWb8aH/view',
+      },
+    ],
+  },
+  {
+    title: 'Blockchain',
+    items: [
+      {
+        name: 'Blockchain Developer Training',
+        issuer: 'Simplilearn SkillUP',
+        date: 'Jan 2024',
+        href: 'https://drive.google.com/file/d/15_ODhNbQO3EfeJvMnsdA7gCxF4O-hv73/view',
+      },
+      {
+        name: 'Blockchain & Web 3.0 Workshop',
+        issuer: 'EPNS SDE, MIT Chennai',
+        date: 'May 2022',
+        href: 'https://drive.google.com/file/d/1T9fPWS_XaJ6gTrC0Kb5xB5UwTaUwlTmu/view',
+      },
+      {
+        name: 'Blockchain Basics',
+        issuer: 'Great Learning Academy',
+        date: 'Oct 2021',
+        href: 'https://drive.google.com/file/d/1FOZHrW4pN5ZM2FJmTDHgXktmVf2yNSSU/view',
+      },
+      {
+        name: 'IoT and Blockchain: Challenges and Applications',
+        issuer: 'Government College of Engineering, Salem',
+        date: 'Mar 2021',
+        href: 'https://drive.google.com/file/d/1Ad9RKEvRmtyemboE9IZ_FG6GgHZ2F9gE/view',
+      },
+    ],
+  },
+  {
+    title: 'Programming and design',
+    items: [
+      {
+        name: 'C++ Data Structures and Algorithms Bootcamp',
+        issuer: 'DevTown with GDSC and Microsoft Learn Student Ambassadors, KIIT chapters',
+        date: 'Sep 2022',
+        href: 'https://drive.google.com/file/d/1FDF1eXXTI1v7qqhCL98yqlnlwKYGC-sW/view',
+      },
+      {
+        name: 'Basics of Python',
+        issuer: 'Infosys Springboard',
+        date: 'Mar 2022',
+        href: 'https://drive.google.com/file/d/1IH_vv679h_ovkauT2kSYUpro5IDpBzlx/view',
+      },
+      {
+        name: 'Front end Development: HTML',
+        issuer: 'Great Learning Academy',
+        date: 'Nov 2021',
+        href: 'https://drive.google.com/file/d/1E2TgQ7_9uJx4ES-wxJkKLzvSSCA_aNCO/view',
+      },
+      {
+        name: 'Adobe Photoshop and CorelDRAW Design',
+        issuer: 'Muthayammal Polytechnic Institution',
+        date: 'Jan 2020',
+        href: 'https://drive.google.com/file/d/1GA0Lv1U03tK7brMRTG3dHOmJchB9Q-XO/view',
+      },
+    ],
+  },
+  {
+    title: 'Assessments and internships',
+    items: [
+      {
+        name: 'TCS NQT National Level Test',
+        issuer: 'TCS, scored 77.80%',
+        date: 'Jun 2022',
+        href: 'https://drive.google.com/file/d/1GMv7XOll5_5BZgx9Y4M78eojgq4kpzTx/view',
+      },
+      {
+        name: 'Java internship',
+        issuer: 'Softora',
+        date: 'Feb 2021',
+        href: 'https://drive.google.com/file/d/17R0nmDxegVtCMk29cVAvU1kf_aOj3_au/view',
+      },
+    ],
+  },
 ];
