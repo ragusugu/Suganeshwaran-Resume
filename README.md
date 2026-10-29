@@ -1,20 +1,51 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# Suganeshwaran R: portfolio
 
-# Run and deploy your AI Studio app
+Personal portfolio for Suganeshwaran R, a Data Engineer. Live at https://ragusugu.github.io/Suganeshwaran-Resume/
 
-This contains everything you need to run your app locally.
+The page is built around one idea: a data pipeline. The hero shows a pipeline running from sources through
+Bronze, Silver and Gold to serving, and each stage shows what was built there.
 
-View your app in AI Studio: https://ai.studio/apps/drive/1LSrbEYTiQieIB-n8zcczlIs8c2gwVlQv
+## Stack
 
-## Run Locally
+React 19, TypeScript, Vite, Tailwind CSS v4 and [Motion](https://motion.dev) for animation. Fonts
+(Bricolage Grotesque, IBM Plex Sans and Mono) are self-hosted, icons are inline SVG, and nothing loads from a CDN.
 
-**Prerequisites:**  Node.js
+## Run it locally
 
+Requires Node 20.19 or newer.
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+```bash
+npm install
+npm run dev
+```
+
+Open http://localhost:3000/Suganeshwaran-Resume/ (the path matters: the site is served from a sub-path on GitHub Pages).
+
+Other commands:
+
+```bash
+npm run typecheck   # strict TypeScript check
+npm run build       # production build into dist/
+npm run preview     # serve the production build locally
+```
+
+## Editing the content
+
+All text lives in [`src/content.ts`](src/content.ts): profile, stats, pipeline stages, experience, projects, stack,
+education and certifications. Edit it and the page updates; no component changes needed.
+
+- Design tokens (colors, fonts) are at the top of [`src/index.css`](src/index.css).
+- Sections are in [`src/components/`](src/components).
+- The downloadable résumé is `public/Suganeshwaran-R-Data-Engineer-Resume.pdf`. Replace the file, keeping the name.
+- The social preview image is `public/og.png` (1200×630).
+
+## Accessibility and motion
+
+Animations respect the visitor's reduced-motion setting: loops stop and content appears without transitions.
+The theme follows the system setting until the visitor picks one with the toggle. There is a skip link, visible
+focus styles, and the pipeline diagram is fully keyboard operable.
+
+## Deploying
+
+`.github/workflows/deploy.yml` builds the site and publishes it to GitHub Pages. It runs on Node 22 because
+Tailwind v4 requires Node 20 or newer.

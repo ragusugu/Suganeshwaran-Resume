@@ -1,0 +1,340 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ------------------------------------------------------------------ *
+ * Design tokens
+ * Paper / Deep Lake / Tide carry the page. Bronze, Silver and Gold are
+ * data-layer markers (Medallion architecture), never decoration.
+ * ------------------------------------------------------------------ */
+:root {
+  color-scheme: light;
+  --bg: #f1f4f6;
+  --surface: #ffffff;
+  --surface-2: #e7ecf0;
+  --ink: #0d2433;
+  --ink-2: #44586a;
+  --line: rgb(13 36 51 / 0.13);
+  --tide: #1f6f8b;
+  --tide-ink: #155a73;
+  --bronze: #a8622a;
+  --silver: #7c8a97;
+  --gold: #a67c00;
+  --alert: #c2412d;
+  --glow: rgb(31 111 139 / 0.2);
+}
+
+.dark {
+  color-scheme: dark;
+  --bg: #0b1e2b;
+  --surface: #11293a;
+  --surface-2: #163246;
+  --ink: #e9eff3;
+  --ink-2: #a3b5c2;
+  --line: rgb(233 239 243 / 0.13);
+  --tide: #5fb9d6;
+  --tide-ink: #7cc8e0;
+  --bronze: #d58d52;
+  --silver: #aab7c3;
+  --gold: #e5b43f;
+  --alert: #ff8070;
+  --glow: rgb(95 185 214 / 0.24);
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-line: var(--line);
+  --color-tide: var(--tide);
+  --color-tide-ink: var(--tide-ink);
+  --color-bronze: var(--bronze);
+  --color-silver: var(--silver);
+  --color-gold: var(--gold);
+  --color-alert: var(--alert);
+
+  --font-display: 'Bricolage Grotesque Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgb(31 111 139 / 0.15);
+  }
+
+  a,
+  button {
+    touch-action: manipulation;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    transition:
+      background-color 0.4s ease,
+      color 0.4s ease;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--tide);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  ::selection {
+    background: var(--tide);
+    color: var(--bg);
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Backdrop: blueprint grid that fades out from the top of the page
+ * ------------------------------------------------------------------ */
+.blueprint {
+  background-image:
+    linear-gradient(to right, var(--line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 20%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 20%, transparent 75%);
+}
+
+.cursor-glow {
+  background: radial-gradient(520px circle at var(--mx, 50%) var(--my, 20%), var(--glow), transparent 60%);
+}
+
+.card-glow {
+  background: radial-gradient(420px circle at var(--sx, 50%) var(--sy, 50%), var(--glow), transparent 62%);
+}
+
+.medal-gradient {
+  background-image: linear-gradient(90deg, var(--bronze), var(--silver), var(--gold));
+}
+
+/* ------------------------------------------------------------------ *
+ * Motion
+ * Everything below is decorative and is switched off for visitors who
+ * prefer reduced motion: the base style of each element is its settled,
+ * finished state.
+ * ------------------------------------------------------------------ */
+@keyframes stream {
+  from {
+    transform: translateX(-30%);
+  }
+  to {
+    transform: translateX(130vw);
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes ping-soft {
+  0% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  80%,
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+@keyframes dash-flow {
+  to {
+    stroke-dashoffset: -20;
+  }
+}
+
+@keyframes cell-fill {
+  0%,
+  18% {
+    opacity: 0.12;
+  }
+  38%,
+  82% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.12;
+  }
+}
+
+@keyframes bar-rise {
+  0%,
+  12% {
+    transform: scaleY(0.12);
+  }
+  45%,
+  88% {
+    transform: scaleY(1);
+  }
+  100% {
+    transform: scaleY(0.12);
+  }
+}
+
+@keyframes jitter {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(2px, -3px);
+  }
+  50% {
+    transform: translate(-3px, 2px);
+  }
+  75% {
+    transform: translate(3px, 3px);
+  }
+}
+
+@keyframes tx-ok {
+  0% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(var(--run, 300px));
+    opacity: 0;
+  }
+}
+
+@keyframes tx-flag-color {
+  0%,
+  49% {
+    fill: var(--tide);
+  }
+  50%,
+  100% {
+    fill: var(--alert);
+  }
+}
+
+@keyframes tx-flag {
+  0% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  50% {
+    transform: translate(calc(var(--run, 300px) * 0.5), 0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(calc(var(--run, 300px) * 0.8), var(--drop, 46px));
+    opacity: 0;
+  }
+}
+
+.stream {
+  animation: stream linear infinite;
+}
+
+.marquee-track {
+  animation: marquee 48s linear infinite;
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+.ping-soft {
+  animation: ping-soft 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+.dash-flow {
+  stroke-dasharray: 5 5;
+  animation: dash-flow 0.9s linear infinite;
+}
+
+.cell-fill {
+  animation: cell-fill 4.8s ease-in-out infinite;
+}
+
+.bar-rise {
+  transform-origin: bottom;
+  transform-box: fill-box;
+  animation: bar-rise 4.6s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+.jitter {
+  animation: jitter 3.2s ease-in-out infinite;
+}
+
+.tx-ok {
+  transform-box: fill-box;
+  animation: tx-ok 4.8s linear infinite;
+}
+
+.tx-flag {
+  transform-box: fill-box;
+  animation:
+    tx-flag 4.8s linear infinite,
+    tx-flag-color 4.8s step-end infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .marquee-track {
+    flex-wrap: wrap;
+    justify-content: center;
+    width: auto !important;
+  }
+
+  .marquee-dup {
+    display: none;
+  }
+
+  .tx-ok,
+  .tx-flag {
+    opacity: 0.8;
+  }
+}
