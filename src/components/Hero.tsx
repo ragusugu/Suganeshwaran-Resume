@@ -1,7 +1,7 @@
 import { motion, useReducedMotion } from 'motion/react';
 import { profile, stats } from '../content';
 import { DataStreams } from './Backdrop';
-import { DownloadIcon, GithubIcon, LinkedinIcon, MailIcon } from './Icons';
+import { DownloadIcon, GithubIcon, LinkedinIcon, MailIcon, SparkleIcon } from './Icons';
 import { resumeUrl } from './Nav';
 import { PipelineDiagram } from './PipelineDiagram';
 import { Counter, EASE, Magnetic, MaskLine, Reveal } from './ui';
@@ -22,7 +22,7 @@ export function Hero() {
     >
       <DataStreams />
       <div className="mx-auto max-w-6xl px-5 md:px-8">
-        <Reveal y={12}>
+        <Reveal y={12} className="flex flex-wrap items-center gap-3">
           <p className="inline-flex items-center gap-3 rounded-full border border-line bg-surface/70 py-1.5 pl-3 pr-4 text-sm text-ink-2 backdrop-blur-sm">
             <span className="relative flex h-2 w-2">
               <span className="ping-soft absolute inline-flex h-full w-full rounded-full bg-tide/60" />
@@ -30,6 +30,16 @@ export function Hero() {
             </span>
             Open to global opportunities
           </p>
+          <a
+            href="#ai"
+            className="group/ai inline-flex items-center gap-2 rounded-full border border-tide/40 bg-tide/10 py-1.5 pl-3 pr-4 text-sm font-medium text-tide-ink transition-colors hover:border-tide hover:bg-tide/15"
+          >
+            <SparkleIcon size={16} />
+            Featured: AI Synthetic Data Generator
+            <span aria-hidden="true" className="transition-transform duration-300 group-hover/ai:translate-x-0.5">
+              →
+            </span>
+          </a>
         </Reveal>
 
         <h1

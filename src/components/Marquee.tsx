@@ -1,4 +1,7 @@
 const tools = [
+  'Azure OpenAI',
+  'Synthetic Data',
+  'Generative AI',
   'Apache Airflow',
   'Databricks',
   'PySpark',
@@ -11,7 +14,6 @@ const tools = [
   'Jenkins',
   'Snowflake',
   'PostgreSQL',
-  'Azure OpenAI',
   'Web3.py',
   'Streamlit',
   'Flask',

@@ -54,6 +54,15 @@ export function Experience() {
               >
                 <h3 className="font-mono text-xs font-medium text-ink-2">{entry.topic}</h3>
                 <p className="mt-2 text-lg leading-relaxed text-ink">{entry.text}</p>
+                {entry.link && (
+                  <a
+                    href={entry.link.href}
+                    className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-tide-ink underline decoration-tide/40 underline-offset-4 transition-colors hover:decoration-tide"
+                  >
+                    {entry.link.label}
+                    <span aria-hidden="true">→</span>
+                  </a>
+                )}
               </motion.div>
             </li>
           ))}

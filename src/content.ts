@@ -25,6 +25,7 @@ export const stats = [
 ];
 
 export const navItems = [
+  { id: 'ai', label: 'AI' },
   { id: 'experience', label: 'Experience' },
   { id: 'projects', label: 'Projects' },
   { id: 'stack', label: 'Stack' },
@@ -142,7 +143,7 @@ export const job = {
   tagline: 'Advanced Data Engineering for Cloud & ML Ecosystem',
 };
 
-export const jobEntries = [
+export const jobEntries: { topic: string; text: string; link?: { href: string; label: string } }[] = [
   {
     topic: 'Orchestration',
     text: 'Architected and monitored complex data workflows in Apache Airflow with robust dependency handling, keeping production-grade pipelines reliable.',
@@ -162,6 +163,7 @@ export const jobEntries = [
   {
     topic: 'AI pilot',
     text: 'Built and deployed the AI Synthetic Data Generator, an Azure OpenAI-based pilot for multi-table synthetic data.',
+    link: { href: '#ai', label: 'See how it works' },
   },
 ];
 
@@ -253,27 +255,17 @@ export const stackGroups: StackGroup[] = [
   {
     title: 'Serve',
     note: 'Getting it to people',
-    items: ['Flask', 'React', 'Vite', 'Streamlit', 'AI-assisted development'],
+    items: ['Flask', 'React', 'Vite', 'Streamlit'],
   },
   {
     title: 'Cloud platform',
     note: 'AWS and Azure',
-    items: ['AWS Lambda', 'EC2', 'VPC', 'IAM', 'Azure OpenAI', 'Key Vault', 'Microsoft Entra ID'],
+    items: ['AWS Lambda', 'EC2', 'VPC', 'IAM', 'Key Vault', 'Microsoft Entra ID'],
   },
   {
-    title: 'DevOps & AI',
+    title: 'DevOps & Web3',
     note: 'Shipping it safely',
-    items: [
-      'Docker',
-      'Kubernetes',
-      'Jenkins',
-      'CI/CD',
-      'Terraform',
-      'Git',
-      'ML model integration',
-      'Web3',
-      'Ethereum data extraction',
-    ],
+    items: ['Docker', 'Kubernetes', 'Jenkins', 'CI/CD', 'Terraform', 'Git', 'Web3', 'Ethereum data extraction'],
   },
 ];
 
@@ -440,3 +432,61 @@ export const certificationGroups: CertificationGroup[] = [
     ],
   },
 ];
+
+// ---------------------------------------------------------------------
+// AI and synthetic data: the flagship walkthrough
+// Every step restates something from the AI Synthetic Data Generator project.
+// ---------------------------------------------------------------------
+export const synthetic = {
+  title: 'AI & synthetic data',
+  lead: 'My Azure OpenAI pilot turns an uploaded schema into realistic multi-table synthetic datasets. Here is how one request moves through it.',
+  steps: [
+    {
+      title: 'Upload a schema',
+      body: 'Authenticated users upload their table schemas to the React/Vite app, and a Flask/Waitress API ingests them.',
+    },
+    {
+      title: 'Analyze the relationships',
+      body: 'Azure OpenAI works out how the tables relate to each other. The AI analysis runs in parallel.',
+    },
+    {
+      title: 'Tune the plan',
+      body: 'The app recommends row counts and suggests error rates for the synthetic data.',
+    },
+    {
+      title: 'Preview the seeds',
+      body: 'LLM seed previews give a first look at the data before the full run.',
+    },
+    {
+      title: 'Generate in the background',
+      body: 'Full data generation runs as a background job.',
+    },
+    {
+      title: 'Download the result',
+      body: 'Results export as CSV, ZIP or Excel files, served from Azure Blob Storage through SAS-token downloads.',
+    },
+  ],
+  platformTitle: 'The service around the model',
+  platform: [
+    { title: 'Sign-in', body: 'Microsoft Entra ID OAuth and Google SSO' },
+    { title: 'Identity and secrets', body: 'Managed identity and Azure Key Vault' },
+    { title: 'Audit trail', body: 'Audit logging' },
+    { title: 'Data', body: 'PostgreSQL and Azure Blob Storage' },
+    { title: 'Subscriptions', body: 'Azure Marketplace SaaS fulfillment' },
+    { title: 'App', body: 'React and Vite frontend on Flask and Waitress' },
+  ],
+};
+
+export const aiStack = {
+  title: 'AI & synthetic data',
+  note: 'Language models in the loop',
+  items: [
+    'Azure OpenAI',
+    'Synthetic data generation',
+    'LLM seed previews',
+    'ML model integration',
+    'Generative AI',
+    'Agentic AI foundations',
+    'AI-assisted development',
+  ],
+};

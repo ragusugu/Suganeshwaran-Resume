@@ -9,6 +9,7 @@ import { Marquee } from './components/Marquee';
 import { Nav } from './components/Nav';
 import { Projects } from './components/Projects';
 import { Stack } from './components/Stack';
+import { SyntheticData } from './components/SyntheticData';
 
 export default function App() {
   const [theme, toggleTheme] = useTheme();
@@ -27,6 +28,7 @@ export default function App() {
       <main id="main" tabIndex={-1} className="outline-none">
         <Hero />
         <Marquee />
+        <SyntheticData />
         <Experience />
         <Projects />
         <Stack />

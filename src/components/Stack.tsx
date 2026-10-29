@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
-import { stackGroups } from '../content';
+import { aiStack, stackGroups } from '../content';
+import { SparkleIcon } from './Icons';
 import { Chip, EASE, Reveal, SectionHeading, SpotlightCard } from './ui';
 
 const list = {
@@ -21,7 +22,35 @@ export function Stack() {
           lead="Grouped by where each tool sits in a pipeline, from getting data in to getting it in front of people."
         />
 
-        <div className="mt-14 grid gap-5 md:grid-cols-2 lg:grid-cols-3 md:mt-16">
+        <Reveal className="mt-14 md:mt-16">
+          <SpotlightCard className="border-tide/30 bg-tide/5">
+            <div className="grid gap-5 p-6 md:p-8 lg:grid-cols-[1fr_1.6fr] lg:items-center">
+              <div>
+                <h3 className="flex items-center gap-2.5 font-display text-2xl font-semibold tracking-tight">
+                  <SparkleIcon className="text-tide-ink" />
+                  {aiStack.title}
+                </h3>
+                <p className="mt-1 text-ink-2">{aiStack.note}</p>
+                <a
+                  href="#ai"
+                  className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-tide-ink underline decoration-tide/40 underline-offset-4 transition-colors hover:decoration-tide"
+                >
+                  See the generator in action
+                  <span aria-hidden="true">→</span>
+                </a>
+              </div>
+              <ul className="flex flex-wrap gap-2">
+                {aiStack.items.map((item) => (
+                  <li key={item}>
+                    <Chip tone="tide">{item}</Chip>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </SpotlightCard>
+        </Reveal>
+
+        <div className="mt-5 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {stackGroups.map((group, index) => (
             <Reveal key={group.title} delay={(index % 3) * 0.08}>
               <SpotlightCard className="h-full">
